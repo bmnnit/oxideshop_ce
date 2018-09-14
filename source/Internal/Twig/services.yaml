@@ -41,4 +41,5 @@ services:
     arguments:
         - '@twig.environment'
         - '@Symfony\Component\Templating\TemplateNameParserInterface'
+        - '@OxidEsales\Eshop\Core\Config'
     public: false
