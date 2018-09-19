@@ -11,7 +11,7 @@ namespace OxidEsales\EshopCommunity\Tests\Unit\Internal\Twig\Extesions;
 use OxidEsales\EshopCommunity\Internal\Twig\Extensions\OxidExtension;
 use OxidEsales\EshopCommunity\Core\Registry;
 
-class OxidExtensionTest extends \PHPUnit_Framework_TestCase
+class OxidExtensionTest extends \PHPUnit\Framework\TestCase
 {
 
     private function getMethod(OxidExtension $oxidExtension, $name) {
