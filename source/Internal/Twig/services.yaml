@@ -41,4 +41,10 @@ services:
     arguments:
         - '@twig.environment'
         - '@Symfony\Component\Templating\TemplateNameParserInterface'
+        - '@OxidEsales\EshopCommunity\Internal\Twig\Extensions\InputhelpExtension'
     public: false
+
+  OxidEsales\EshopCommunity\Internal\Twig\Extensions\InputhelpExtension:
+    class: OxidEsales\EshopCommunity\Internal\Twig\Extensions\OxidExtension
+    arguments:
+      - '@OxidEsales\EshopCommunity\Internal\Adapter\TemplateLogic\InputhelpExtension'

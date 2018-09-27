@@ -3,3 +3,7 @@ services:
     class: OxidEsales\EshopCommunity\Internal\Adapter\ShopAdapter
     autowire: true
     public: false
+
+# TemplateLogic
+  OxidEsales\EshopCommunity\Internal\Adapter\TemplateLogic\InputhelpLogic:
+    class: OxidEsales\EshopCommunity\Internal\Adapter\TemplateLogic\InputhelpLogic
