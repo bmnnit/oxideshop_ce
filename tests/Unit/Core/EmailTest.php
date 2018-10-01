@@ -791,7 +791,7 @@ class EmailTest extends \OxidTestCase
     public function testSendMailErrorMsg()
     {
         $oEmail = $this->getMock(\OxidEsales\Eshop\Core\Email::class, array("getRecipient", "getMailer", "_sendMail", "_sendMailErrorMsg"));
-        $oEmail->expects($this->at(0))->method('getRecipient')->will($this->returnValue(1));
+        $oEmail->expects($this->at(0))->method('getRecipient')->will($this->returnValue([1]));
         $oEmail->expects($this->at(1))->method('getMailer')->will($this->returnValue("smtp"));
         $oEmail->expects($this->at(2))->method('_sendMail')->will($this->returnValue(false));
         $oEmail->expects($this->at(3))->method('_sendMailErrorMsg');
@@ -808,7 +808,7 @@ class EmailTest extends \OxidTestCase
     public function testSendMailErrorMsg_failsOnlySmtp()
     {
         $oEmail = $this->getMock(\OxidEsales\Eshop\Core\Email::class, array("getRecipient", "getMailer", "_sendMail", "_sendMailErrorMsg"));
-        $oEmail->expects($this->at(0))->method('getRecipient')->will($this->returnValue(1));
+        $oEmail->expects($this->at(0))->method('getRecipient')->will($this->returnValue([1]));
         $oEmail->expects($this->at(1))->method('getMailer')->will($this->returnValue("smtp"));
         $oEmail->expects($this->at(2))->method('_sendMail')->will($this->returnValue(false));
         $oEmail->expects($this->at(3))->method('_sendMailErrorMsg');
@@ -825,7 +825,7 @@ class EmailTest extends \OxidTestCase
     public function testSendMailErrorMsg_failsMail()
     {
         $oEmail = $this->getMock(\OxidEsales\Eshop\Core\Email::class, array("getRecipient", "getMailer", "_sendMail", "_sendMailErrorMsg"));
-        $oEmail->expects($this->at(0))->method('getRecipient')->will($this->returnValue(1));
+        $oEmail->expects($this->at(0))->method('getRecipient')->will($this->returnValue([1]));
         $oEmail->expects($this->at(1))->method('getMailer')->will($this->returnValue("mail"));
         $oEmail->expects($this->at(2))->method('_sendMail')->will($this->returnValue(false));
         $oEmail->expects($this->at(3))->method('_sendMailErrorMsg');
