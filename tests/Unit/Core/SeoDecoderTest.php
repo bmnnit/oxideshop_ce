@@ -264,7 +264,7 @@ class SeoDecoderTest extends \OxidTestCase
 
     public function testDecodeUrl()
     {
-        oxTestModules::addFunction('oxSeoDecoder', 'parseStdUrl', function ($u) {return array();});
+        oxTestModules::addFunction('oxSeoDecoder', 'parseStdUrl', 'function ($u) {return array();}');
         $oD = oxNew('oxSeoDecoder');
         $this->assertSame(false, $oD->decodeUrl($this->getConfig()->getShopURL() . 'Uragarana/'));
         $iShopId = $this->getConfig()->getBaseShopId();

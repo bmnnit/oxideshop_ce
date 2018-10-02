@@ -171,7 +171,7 @@ class StrRegularTest extends \OxidTestCase
 
     public function testPregReplaceCallback()
     {
-        $callBack = function ($matches) { return "_";};
+        $callBack = 'function ($matches) { return "_";}';
         $this->assertEquals(
             "H�_H�",
             $this->_oSubj->preg_replace_callback('/ /', $callBack, $this->_sStrUpperCase)
@@ -180,7 +180,7 @@ class StrRegularTest extends \OxidTestCase
 
     public function testPregReplaceCallbackArray()
     {
-        $callBack = function ($matches) { return "_";};
+        $callBack = 'function ($matches) { return "_";}';
         $this->assertEquals(
             $this->_2Utf("H�_H�"),
             $this->_oSubj->preg_replace_callback(array('/ /', '|//+|'), $callBack, $this->_2Utf($this->_sStrUpperCase))
