@@ -273,13 +273,6 @@ class Email extends \PHPMailer
     protected $_sCharSet = null;
 
     /**
-     * @deprecated since v6.3.1 (2018-10-01); This property will be removed completely.
-     *
-     * @var \OxidEsales\Eshop\Core\Config
-     */
-    protected $_oConfig = null;
-
-    /**
      * Class constructor.
      */
     public function __construct()
@@ -335,25 +328,8 @@ class Email extends \PHPMailer
      */
     public function getConfig()
     {
-        if ($this->_oConfig == null) {
-            $this->_oConfig = \OxidEsales\Eshop\Core\Registry::getConfig();
-        }
-
-        return $this->_oConfig;
+        return \OxidEsales\Eshop\Core\Registry::getConfig();
     }
-
-    /**
-     * @deprecated since v6.3.1 (2018-10-01); This method will be removed completely. Use OxidEsales\Eshop\Core\Registry::getConfig()->setConfigParam() in the future.
-     *
-     * oxConfig instance setter
-     *
-     * @param \OxidEsales\Eshop\Core\Config $config config object
-     */
-    public function setConfig($config)
-    {
-        $this->_oConfig = $config;
-    }
-
 
     /**
      * Smarty instance getter, assigns this oxEmail instance to "oEmailView" variable

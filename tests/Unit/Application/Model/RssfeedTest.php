@@ -6,6 +6,8 @@
 namespace OxidEsales\EshopCommunity\Tests\Unit\Application\Model;
 
 use \oxField;
+use OxidEsales\Eshop\Core\Config;
+use OxidEsales\Eshop\Core\Registry;
 use oxRssFeed;
 use \stdClass;
 use \oxList;
@@ -41,7 +43,7 @@ class RssfeedTest extends \OxidTestCase
         $oCfg->expects($this->any())->method('getShopUrl')->will($this->returnValue("http://homeurl/"));
         $oCfg->expects($this->any())->method('getImageUrl')->will($this->returnValue("http://homeurl/lalala/"));
 
-        $oRss->setConfig($oCfg);
+        Registry::set(Config::class, $oCfg);
         $oRss->p_loadBaseChannel();
         $edition = strtolower($this->getTestConfig()->getShopEdition());
         $expect = array(
@@ -161,7 +163,7 @@ class RssfeedTest extends \OxidTestCase
         $oCfg = $this->getConfig();
         $oCfg->setConfigParam('aCurrencies', array('EUR@1.00@.@.@EUR@1'));
         $oRss = oxNew('oxRssFeed');
-        $oRss->setConfig($oCfg);
+        Registry::set(Config::class, $oCfg);
 
         $oLongDesc = new stdClass();
         $oLongDesc->value = "artlogndesc";
@@ -213,7 +215,7 @@ class RssfeedTest extends \OxidTestCase
         $oCfg = $this->getConfig();
         $oCfg->setConfigParam('aCurrencies', array('EUR@1.00@.@.@EUR@1'));
         $oRss = oxNew('oxRssFeed');
-        $oRss->setConfig($oCfg);
+        Registry::set(Config::class, $oCfg);
 
         $oArt1 = $this->getMock(\OxidEsales\Eshop\Application\Model\Article::class, array("getLink", "getLongDesc"));
         $oArt1->expects($this->any())->method('getLink')->will($this->returnValue("artlink"));
@@ -264,7 +266,7 @@ class RssfeedTest extends \OxidTestCase
         $oCfg->expects($this->any())->method('getActShopCurrencyObject')->will($this->returnValue($oActCur));
 
         $oRss = oxNew('oxRssFeed');
-        $oRss->setConfig($oCfg);
+        Registry::set(Config::class, $oCfg);
 
         $oLongDesc = new oxField("artlogndesc");
         
@@ -324,7 +326,7 @@ class RssfeedTest extends \OxidTestCase
         $oCfg->setConfigParam('aCurrencies', array('CHF@1.00@,@.@CHF@1'));
 
         $oRss = oxNew('oxRssFeed');
-        $oRss->setConfig($oCfg);
+        Registry::set(Config::class, $oCfg);
 
         $oLongDesc = new stdClass();
         $oLongDesc->value = "artlogndesc";
@@ -377,7 +379,7 @@ class RssfeedTest extends \OxidTestCase
         $oCfg->expects($this->any())->method('getShopUrl')->will($this->returnValue('http://homeurl/?'));
 
         $oRss = oxNew('oxrssfeed');
-        $oRss->setConfig($oCfg);
+        Registry::set(Config::class, $oCfg);
         $this->assertEquals('http://homeurl/?cl=rss&amp;fnc=topshop&amp;lang=1extra', $oRss->UNITprepareUrl('cl=rss&amp;fnc=topshop', 'asd'));
     }
 
@@ -396,7 +398,7 @@ class RssfeedTest extends \OxidTestCase
         $oRss = $this->getMock(\OxidEsales\Eshop\Application\Model\RssFeed::class, array('getConfig'));
         $oRss->expects($this->any())->method('getConfig')->will($this->returnValue($oCfg));
 
-        \OxidEsales\Eshop\Core\Registry::getSeoEncoder()->setConfig($oCfg);
+        Registry::set(Config::class, $oCfg);
 
         $this->assertEquals('http://homeurl/?cl=rss&amp;fnc=topshop&amp;lang=1 - SEO - rss/asd/extra', $oRss->UNITprepareUrl('cl=rss&amp;fnc=topshop', 'asd'));
     }
@@ -410,7 +412,7 @@ class RssfeedTest extends \OxidTestCase
         $oShop->oxshops__oxname = new oxField('Test Shop');
         $oCfg->expects($this->any())->method('getActiveShop')->will($this->returnValue($oShop));
 
-        $oRss->setConfig($oCfg);
+        Registry::set(Config::class, $oCfg);
         $this->assertEquals('Test Shop/Test', $oRss->UNITprepareFeedName('Test'));
     }
 
@@ -422,28 +424,28 @@ class RssfeedTest extends \OxidTestCase
 
         oxTestModules::publicize('oxrssfeed', '_getShopUrl');
         $oRss = oxNew('oxRssFeed');
-        $oRss->setConfig($oCfg);
+        Registry::set(Config::class, $oCfg);
 
         $this->assertEquals('http://homeurl/?', $oRss->p_getShopUrl());
 
         $oCfg = $this->getMock(\OxidEsales\Eshop\Core\Config::class, array('getShopUrl'));
         $oCfg->expects($this->any())->method('getShopUrl')->will($this->returnValue("http://homeurl/"));
-        $oRss->setConfig($oCfg);
+        Registry::set(Config::class, $oCfg);
         $this->assertEquals('http://homeurl/?', $oRss->p_getShopUrl());
 
         $oCfg = $this->getMock(\OxidEsales\Eshop\Core\Config::class, array('getShopUrl'));
         $oCfg->expects($this->any())->method('getShopUrl')->will($this->returnValue("http://homeurl/?sdf"));
-        $oRss->setConfig($oCfg);
+        Registry::set(Config::class, $oCfg);
         $this->assertEquals('http://homeurl/?sdf&amp;', $oRss->p_getShopUrl());
 
         $oCfg = $this->getMock(\OxidEsales\Eshop\Core\Config::class, array('getShopUrl'));
         $oCfg->expects($this->any())->method('getShopUrl')->will($this->returnValue("http://homeurl/?sdf&"));
-        $oRss->setConfig($oCfg);
+        Registry::set(Config::class, $oCfg);
         $this->assertEquals('http://homeurl/?sdf&', $oRss->p_getShopUrl());
 
         $oCfg = $this->getMock(\OxidEsales\Eshop\Core\Config::class, array('getShopUrl'));
         $oCfg->expects($this->any())->method('getShopUrl')->will($this->returnValue("http://homeurl/?sdf&amp;"));
-        $oRss->setConfig($oCfg);
+        Registry::set(Config::class, $oCfg);
         $this->assertEquals('http://homeurl/?sdf&amp;', $oRss->p_getShopUrl());
     }
 
@@ -516,7 +518,7 @@ class RssfeedTest extends \OxidTestCase
         $oShop = oxNew('oxShop');
         $oShop->oxshops__oxname = new oxField('Test Shop');
         $oCfg->expects($this->any())->method('getActiveShop')->will($this->returnValue($oShop));
-        $oRss->setConfig($oCfg);
+        Registry::set(Config::class, $oCfg);
 
         $this->assertEquals('Test Shop/TOP_OF_THE_SHOPtr', $oRss->getTopInShopTitle());
     }
@@ -573,7 +575,7 @@ class RssfeedTest extends \OxidTestCase
         $oShop = oxNew('oxShop');
         $oShop->oxshops__oxname = new oxField('Test Shop');
         $oCfg->expects($this->any())->method('getActiveShop')->will($this->returnValue($oShop));
-        $oRss->setConfig($oCfg);
+        Registry::set(Config::class, $oCfg);
         $this->assertEquals('Test Shop/NEWEST_SHOP_PRODUCTStr', $oRss->getNewestArticlesTitle());
     }
 
@@ -645,7 +647,7 @@ class RssfeedTest extends \OxidTestCase
         $oShop = oxNew('oxShop');
         $oShop->oxshops__oxname = new oxField('Test Shop');
         $oCfg->expects($this->any())->method('getActiveShop')->will($this->returnValue($oShop));
-        $oRss->setConfig($oCfg);
+        Registry::set(Config::class, $oCfg);
 
         $oCat = oxNew('oxcategory');
         $oCat->load($sCatId);
@@ -751,7 +753,7 @@ class RssfeedTest extends \OxidTestCase
         $oShop = oxNew('oxShop');
         $oShop->oxshops__oxname = new oxField('Test Shop');
         $oCfg->expects($this->any())->method('getActiveShop')->will($this->returnValue($oShop));
-        $oRss->setConfig($oCfg);
+        Registry::set(Config::class, $oCfg);
         $this->assertEquals('Test Shop/SEARCH_FOR_PRODUCTS_CATEGORY_VENDOR_MANUFACTURERtssscatvendman', $oRss->getSearchArticlesTitle('tsss', 'cat', 'vend', 'man'));
     }
 
@@ -801,9 +803,6 @@ class RssfeedTest extends \OxidTestCase
     public function testLoadSearchArticles()
     {
         oxTestModules::addFunction('oxrssfeed', '_getSearchParamsUrl', '{ return "klnk"; }');
-        $oConfig = $this->getConfig();
-        $oRss = oxNew('oxRssFeed');
-        $oRss->setConfig($oConfig);
 
         $this->getConfig()->setConfigParam('iRssItemsCount', 50);
         oxTestModules::addFunction('oxLang', 'getBaseLanguage', '{return 1;}');
@@ -892,7 +891,7 @@ class RssfeedTest extends \OxidTestCase
         $oShop = oxNew('oxShop');
         $oShop->oxshops__oxname = new oxField('Test Shop');
         $oCfg->expects($this->any())->method('getActiveShop')->will($this->returnValue($oShop));
-        $oRss->setConfig($oCfg);
+        Registry::set(Config::class, $oCfg);
         $oArt = oxNew('oxArticle');
         $oArt->oxarticles__oxtitle = new oxField('tsss');
         $this->assertEquals('Test Shop/LISTMANIA_LIST_FORtsss', $oRss->getRecommListsTitle($oArt));
@@ -1042,7 +1041,7 @@ class RssfeedTest extends \OxidTestCase
         $oShop = oxNew('oxShop');
         $oShop->oxshops__oxname = new oxField('Test Shop');
         $oCfg->expects($this->any())->method('getActiveShop')->will($this->returnValue($oShop));
-        $oRss->setConfig($oCfg);
+        Registry::set(Config::class, $oCfg);
         $oRecommList = oxNew('oxRecommList');
         $oRecommList->oxrecommlists__oxtitle = new oxField('tsss');
         $this->assertEquals('Test Shop/LISTMANIA_LIST_PRODUCTStsss', $oRss->getRecommListArticlesTitle($oRecommList));
@@ -1149,7 +1148,7 @@ class RssfeedTest extends \OxidTestCase
         $oShop = oxNew('oxShop');
         $oShop->oxshops__oxname = new oxField('Test Shop');
         $oCfg->expects($this->any())->method('getActiveShop')->will($this->returnValue($oShop));
-        $oRss->setConfig($oCfg);
+        Registry::set(Config::class, $oCfg);
         $this->assertEquals('Test Shop/BARGAINtr', $oRss->getBargainTitle());
     }
 
