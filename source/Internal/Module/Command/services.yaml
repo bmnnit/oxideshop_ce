@@ -1,0 +1,6 @@
+services:
+  command.module_activate_command:
+    class: OxidEsales\EshopCommunity\Internal\Module\Command\ModuleActivateCommand
+    public: false
+    tags:
+    - { name: 'console.command', command: 'oe:module:activate' }
