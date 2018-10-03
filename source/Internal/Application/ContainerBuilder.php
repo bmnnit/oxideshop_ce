@@ -10,6 +10,7 @@ namespace OxidEsales\EshopCommunity\Internal\Application;
 
 use OxidEsales\EshopCommunity\Core\Registry;
 use Symfony\Component\Config\FileLocator;
+use Symfony\Component\Console\DependencyInjection\AddConsoleCommandPass;
 use Symfony\Component\DependencyInjection\Container;
 use Symfony\Component\DependencyInjection\Loader\YamlFileLoader;
 use Symfony\Component\DependencyInjection\ContainerBuilder as SymfonyContainerBuilder;
@@ -33,6 +34,7 @@ class ContainerBuilder
     public function getContainer(): Container
     {
         $symfonyContainer = new SymfonyContainerBuilder();
+        $symfonyContainer->addCompilerPass(new AddConsoleCommandPass());
         $symfonyContainer->addCompilerPass(new RegisterListenersPass());
         $this->loadServiceFiles($symfonyContainer);
         $this->loadProjectServices($symfonyContainer);
