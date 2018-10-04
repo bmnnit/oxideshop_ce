@@ -330,8 +330,8 @@ class SeoDecoderTest extends \OxidTestCase
         $aS = $_SERVER;
         $aG = $_GET;
         try {
-            oxTestModules::addFunction('oxSeoDecoder', '_getParams', function ($sR, $sP) {if ($sR != "sRe" || $sP != "sPa" ) throw new PHPUnit\Framework\AssertionFailedError("bad params"); return "sParam";});
-            oxTestModules::addFunction('oxSeoDecoder', 'decodeUrl', function ($sU) {if ($sU != "sParam" ) throw new PHPUnit\Framework\AssertionFailedError("bad params"); return array("test"=>"test");});
+            oxTestModules::addFunction('oxSeoDecoder', '_getParams', 'function ($sR, $sP) {if ($sR != "sRe" || $sP != "sPa" ) throw new PHPUnit\Framework\AssertionFailedError("bad params"); return "sParam";}');
+            oxTestModules::addFunction('oxSeoDecoder', 'decodeUrl', 'function ($sU) {if ($sU != "sParam" ) throw new PHPUnit\Framework\AssertionFailedError("bad params"); return array("test"=>"test");}');
             $oD = oxNew('oxSeoDecoder');
             $_GET = array('was' => 'was');
             $_SERVER = array('REQUEST_URI' => 'sRe', 'SCRIPT_NAME' => 'sPoxseo.phpa');
