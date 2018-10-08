@@ -106,7 +106,7 @@ class AdminController extends \OxidEsales\Eshop\Core\Controller\BaseController
      */
     public function __construct()
     {
-        $myConfig = $this->getConfig();
+        $myConfig = \OxidEsales\Eshop\Core\Registry::getConfig();
         $myConfig->setConfigParam('blAdmin', true);
         $this->setAdminMode(true);
 
@@ -127,7 +127,7 @@ class AdminController extends \OxidEsales\Eshop\Core\Controller\BaseController
     protected function _getEditShop($sShopId)
     {
         if (!$this->_oEditShop) {
-            $this->_oEditShop = $this->getConfig()->getActiveShop();
+            $this->_oEditShop = \OxidEsales\Eshop\Core\Registry::getConfig()->getActiveShop();
             if ($this->_oEditShop->getId() != $sShopId) {
                 $oEditShop = oxNew(\OxidEsales\Eshop\Application\Model\Shop::class);
                 if ($oEditShop->load($sShopId)) {
@@ -146,7 +146,7 @@ class AdminController extends \OxidEsales\Eshop\Core\Controller\BaseController
      */
     public function init()
     {
-        $myConfig = $this->getConfig();
+        $myConfig = \OxidEsales\Eshop\Core\Registry::getConfig();
 
         // authorization check
         if (!$this->_authorize()) {
@@ -176,7 +176,7 @@ class AdminController extends \OxidEsales\Eshop\Core\Controller\BaseController
     public function addGlobalParams($oShop = null)
     {
         $mySession = $this->getSession();
-        $myConfig = $this->getConfig();
+        $myConfig = \OxidEsales\Eshop\Core\Registry::getConfig();
         $oLang = \OxidEsales\Eshop\Core\Registry::getLang();
 
         $oShop = parent::addGlobalParams($oShop);
@@ -209,7 +209,7 @@ class AdminController extends \OxidEsales\Eshop\Core\Controller\BaseController
      */
     protected function _getServiceProtocol()
     {
-        return $this->getConfig()->isSsl() ? 'https' : 'http';
+        return \OxidEsales\Eshop\Core\Registry::getConfig()->isSsl() ? 'https' : 'http';
     }
 
     /**
@@ -284,7 +284,7 @@ class AdminController extends \OxidEsales\Eshop\Core\Controller\BaseController
     {
         $sReturn = parent::render();
 
-        $myConfig = $this->getConfig();
+        $myConfig = \OxidEsales\Eshop\Core\Registry::getConfig();
         $oLang = \OxidEsales\Eshop\Core\Registry::getLang();
 
         // sets up navigation data
@@ -377,7 +377,7 @@ class AdminController extends \OxidEsales\Eshop\Core\Controller\BaseController
      */
     public function resetContentCache($blForceReset = null)
     {
-        $blDeleteCacheOnLogout = $this->getConfig()->getConfigParam('blClearCacheOnLogout');
+        $blDeleteCacheOnLogout = \OxidEsales\Eshop\Core\Registry::getConfig()->getConfigParam('blClearCacheOnLogout');
         if (!$blDeleteCacheOnLogout || $blForceReset) {
             \OxidEsales\Eshop\Core\Registry::getUtils()->oxResetFileCache();
         }
@@ -392,7 +392,7 @@ class AdminController extends \OxidEsales\Eshop\Core\Controller\BaseController
      */
     public function resetCounter($sCounterType, $sValue = null)
     {
-        $blDeleteCacheOnLogout = $this->getConfig()->getConfigParam('blClearCacheOnLogout');
+        $blDeleteCacheOnLogout = \OxidEsales\Eshop\Core\Registry::getConfig()->getConfigParam('blClearCacheOnLogout');
         $myUtilsCount = \OxidEsales\Eshop\Core\Registry::getUtilsCount();
 
         if (!$blDeleteCacheOnLogout) {
@@ -443,7 +443,7 @@ class AdminController extends \OxidEsales\Eshop\Core\Controller\BaseController
      */
     protected function _getCountryByCode($sCountryCode)
     {
-        $myConfig = $this->getConfig();
+        $myConfig = \OxidEsales\Eshop\Core\Registry::getConfig();
 
         //default country
         $sCountry = 'international';

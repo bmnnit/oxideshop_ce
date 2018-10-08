@@ -1973,7 +1973,7 @@ class UBaseTest extends \OxidTestCase
     public function testGetCatMoreUrl()
     {
         $oUBase = oxNew('oxUBase');
-        $this->assertEquals($oUBase->getConfig()->getShopHomeURL() . 'cnid=oxmore', $oUBase->getCatMoreUrl());
+        $this->assertEquals(Registry::getConfig()->getShopHomeURL() . 'cnid=oxmore', $oUBase->getCatMoreUrl());
     }
 
     /*

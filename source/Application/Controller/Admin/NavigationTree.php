@@ -219,7 +219,7 @@ class NavigationTree extends \OxidEsales\Eshop\Core\Base
      */
     protected function _checkDemoShopDenials($dom)
     {
-        if (!$this->getConfig()->isDemoShop()) {
+        if (!\OxidEsales\Eshop\Core\Registry::getConfig()->isDemoShop()) {
             // nothing to check for non demo shop
             return;
         }
@@ -387,7 +387,7 @@ class NavigationTree extends \OxidEsales\Eshop\Core\Base
      */
     protected function _getMenuFiles()
     {
-        $myConfig = $this->getConfig();
+        $myConfig = \OxidEsales\Eshop\Core\Registry::getConfig();
         $myOxUtlis = \OxidEsales\Eshop\Core\Registry::getUtils();
 
         $editionPathSelector = new EditionPathProvider(new EditionRootPathProvider(new EditionSelector()));
@@ -452,7 +452,7 @@ class NavigationTree extends \OxidEsales\Eshop\Core\Base
                 $reload = false;
                 $templateLanguageCode = $this->getTemplateLanguageCode();
 
-                $shopId = $this->getConfig()->getActiveShop()->getShopId();
+                $shopId = \OxidEsales\Eshop\Core\Registry::getConfig()->getActiveShop()->getShopId();
                 $cacheName = 'menu_' . $templateLanguageCode . $shopId . '_xml';
                 $cacheFile = $myOxUtlis->getCacheFilePath($cacheName);
                 $cacheContents = $myOxUtlis->fromFileCache($cacheName);
@@ -616,7 +616,7 @@ class NavigationTree extends \OxidEsales\Eshop\Core\Base
      */
     protected function _getAdminUrl()
     {
-        $myConfig = $this->getConfig();
+        $myConfig = \OxidEsales\Eshop\Core\Registry::getConfig();
 
         if (($adminSslUrl = $myConfig->getConfigParam('sAdminSSLURL'))) {
             $url = trim($adminSslUrl, '/');

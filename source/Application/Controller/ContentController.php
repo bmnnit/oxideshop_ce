@@ -131,7 +131,7 @@ class ContentController extends \OxidEsales\Eshop\Application\Controller\Fronten
 
         $oContent = $this->getContent();
         if ($oContent && !$this->_canShowContent($oContent->oxcontents__oxloadid->value)) {
-            \OxidEsales\Eshop\Core\Registry::getUtils()->redirect($this->getConfig()->getShopHomeUrl() . 'cl=account');
+            \OxidEsales\Eshop\Core\Registry::getUtils()->redirect(\OxidEsales\Eshop\Core\Registry::getConfig()->getShopHomeUrl() . 'cl=account');
         }
 
         $sTpl = false;
@@ -387,7 +387,7 @@ class ContentController extends \OxidEsales\Eshop\Application\Controller\Fronten
      */
     public function showRdfa()
     {
-        return $this->getConfig()->getConfigParam('blRDFaEmbedding');
+        return \OxidEsales\Eshop\Core\Registry::getConfig()->getConfigParam('blRDFaEmbedding');
     }
 
     /**
@@ -400,7 +400,7 @@ class ContentController extends \OxidEsales\Eshop\Application\Controller\Fronten
     {
         $aTemplate = [];
         $sContentId = $this->getContent()->oxcontents__oxloadid->value;
-        $myConfig = $this->getConfig();
+        $myConfig = \OxidEsales\Eshop\Core\Registry::getConfig();
         if ($sContentId == $myConfig->getConfigParam('sRDFaBusinessEntityLoc')) {
             $aTemplate[] = $this->_sBusinessTemplate;
         }
@@ -421,7 +421,7 @@ class ContentController extends \OxidEsales\Eshop\Application\Controller\Fronten
      */
     public function getBusinessEntityExtends()
     {
-        $myConfig = $this->getConfig();
+        $myConfig = \OxidEsales\Eshop\Core\Registry::getConfig();
         $aExtends = [];
 
         foreach ($this->_aBusinessEntityExtends as $sExtend) {
@@ -504,7 +504,7 @@ class ContentController extends \OxidEsales\Eshop\Application\Controller\Fronten
      */
     public function getRdfaVAT()
     {
-        return $this->getConfig()->getConfigParam('iRDFaVAT');
+        return \OxidEsales\Eshop\Core\Registry::getConfig()->getConfigParam('iRDFaVAT');
     }
 
     /**
@@ -514,7 +514,7 @@ class ContentController extends \OxidEsales\Eshop\Application\Controller\Fronten
      */
     public function getRdfaPriceValidity()
     {
-        $iDays = $this->getConfig()->getConfigParam('iRDFaPriceValidity');
+        $iDays = \OxidEsales\Eshop\Core\Registry::getConfig()->getConfigParam('iRDFaPriceValidity');
         $iFrom = \OxidEsales\Eshop\Core\Registry::getUtilsDate()->getTime();
         $iThrough = $iFrom + ($iDays * 24 * 60 * 60);
         $oPriceValidity = [];

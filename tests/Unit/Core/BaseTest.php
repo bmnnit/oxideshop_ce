@@ -5,6 +5,7 @@
  */
 namespace OxidEsales\EshopCommunity\Tests\Unit\Core;
 
+use OxidEsales\Eshop\Core\Registry;
 use \oxObjectException;
 
 use Exception;
@@ -504,7 +505,7 @@ class BaseTest extends \OxidTestCase
     public function testMagicGetLazyLoadingNonExistingFieldWithDebug()
     {
         $oBase = new _oxBase();
-        $oBase->getConfig()->setConfigParam('iDebug', -1);
+        Registry::getConfig()->setConfigParam('iDebug', -1);
         $oBase->setClassVar("_blUseLazyLoading", true);
         $oBase->init("oxarticles");
         $oBase->setId("2000");
@@ -520,7 +521,7 @@ class BaseTest extends \OxidTestCase
     public function testMagicGetLazyLoadingNonExistingFieldWithoutDebug()
     {
         $oBase = new _oxBase();
-        $oBase->getConfig()->setConfigParam('iDebug', 0);
+        Registry::getConfig()->setConfigParam('iDebug', 0);
         $oBase->setClassVar("_blUseLazyLoading", true);
         $oBase->init("oxarticles");
         $oBase->setId("2000");

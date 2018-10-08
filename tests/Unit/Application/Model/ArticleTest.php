@@ -5,6 +5,7 @@
  */
 namespace OxidEsales\EshopCommunity\Tests\Unit\Application\Model;
 
+use OxidEsales\Eshop\Core\Registry;
 use OxidEsales\EshopCommunity\Core\ShopIdCalculator;
 use OxidEsales\EshopCommunity\Core\DatabaseProvider;
 use \oxList;
@@ -1046,7 +1047,7 @@ class ArticleTest extends \OxidTestCase
         $oAmPriceList[$oP2A->getId()] = $oP2A;
 
         $oArticle = oxNew('oxArticle');
-        $oArticle->getConfig()->setConfigParam('bl_perfCalcVatOnlyForBasketOrder', 0);
+        Registry::getConfig()->setConfigParam('bl_perfCalcVatOnlyForBasketOrder', 0);
         $oArticle->load('1126');
 
         $oAmPriceList = $oArticle->UNITfillAmountPriceList($oAmPriceList);
@@ -1090,7 +1091,7 @@ class ArticleTest extends \OxidTestCase
         $oArticle = $this->getMock(\OxidEsales\Eshop\Application\Model\Article::class, array('_applyVAT') /*, array(), '', false*/);
         // one for main, two for am prices
         $oArticle->expects($this->exactly(1))->method('_applyVAT');
-        $oArticle->getConfig()->setConfigParam('bl_perfCalcVatOnlyForBasketOrder', 0);
+        Registry::getConfig()->setConfigParam('bl_perfCalcVatOnlyForBasketOrder', 0);
         $oArticle->load('1126');
 
         $oArticle->UNITfillAmountPriceList($oAmPriceList);

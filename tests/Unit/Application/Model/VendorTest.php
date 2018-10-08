@@ -5,6 +5,7 @@
  */
 namespace OxidEsales\EshopCommunity\Tests\Unit\Application\Model;
 
+use OxidEsales\Eshop\Core\Registry;
 use OxidEsales\EshopCommunity\Application\Model\Article;
 use OxidEsales\EshopCommunity\Application\Model\Vendor;
 
@@ -122,7 +123,7 @@ class VendorTest extends \OxidTestCase
         $vendor = oxNew('oxvendor');
         $vendor->setId("testVendorId");
 
-        $sTestUrl = $this->getConfig()->getConfig()->getShopHomeUrl($iLang, false) . "cl=vendorlist&amp;cnid=v_" . $vendor->getId();
+        $sTestUrl = Registry::getConfig()->getShopHomeUrl($iLang, false) . "cl=vendorlist&amp;cnid=v_" . $vendor->getId();
         $this->assertEquals($sTestUrl, $vendor->getBaseStdLink($iLang));
     }
 

@@ -68,7 +68,7 @@ class CategoryText extends \OxidEsales\Eshop\Application\Controller\Admin\AdminD
     {
         parent::save();
 
-        $myConfig = $this->getConfig();
+        $myConfig = \OxidEsales\Eshop\Core\Registry::getConfig();
 
         $soxId = $this->getEditObjectId();
         $aParams = \OxidEsales\Eshop\Core\Registry::getConfig()->getRequestParameter("editval");

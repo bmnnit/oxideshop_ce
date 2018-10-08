@@ -77,16 +77,6 @@ class Base
     }
 
     /**
-     * Config instance getter
-     *
-     * @return \OxidEsales\Eshop\Core\Config
-     */
-    public function getConfig()
-    {
-        return \OxidEsales\Eshop\Core\Registry::getConfig();
-    }
-
-    /**
      * oxSession instance getter
      *
      * @return \OxidEsales\Eshop\Core\Session

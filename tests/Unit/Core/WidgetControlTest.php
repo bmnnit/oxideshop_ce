@@ -6,6 +6,7 @@
 namespace OxidEsales\EshopCommunity\Tests\Unit\Core;
 
 use modDB;
+use OxidEsales\Eshop\Core\Registry;
 use OxidEsales\EshopCommunity\Core\Controller\BaseController;
 use \oxRegistry;
 
@@ -74,8 +75,8 @@ class WidgetControlTest extends \OxidTestCase
         $this->assertEquals("testValue", $oView->getViewParameter("testParam"));
 
         // checking active view object
-        $this->assertEquals(1, count($oControl->getConfig()->getActiveViewsList()));
-        $this->assertEquals("oxwCookieNote", $oControl->getConfig()->getActiveView()->getClassName());
+        $this->assertEquals(1, count(Registry::getConfig()->getActiveViewsList()));
+        $this->assertEquals("oxwCookieNote", Registry::getConfig()->getActiveView()->getClassName());
     }
 
     /**
@@ -94,14 +95,14 @@ class WidgetControlTest extends \OxidTestCase
         $this->assertEquals("testValue", $oView->getViewParameter("testParam"));
 
         // checking active view objects
-        $aActiveViews = $oControl->getConfig()->getActiveViewsList();
+        $aActiveViews = Registry::getConfig()->getActiveViewsList();
 
         $this->assertEquals(3, count($aActiveViews));
         $this->assertEquals("account", $aActiveViews[0]->getClassName());
         $this->assertInstanceOf(BaseController::class, $aActiveViews[1]);
         $this->assertEquals("oxwCookieNote", $aActiveViews[2]->getClassName());
 
-        $this->assertEquals("oxwCookieNote", $oControl->getConfig()->getActiveView()->getClassName());
+        $this->assertEquals("oxwCookieNote", Registry::getConfig()->getActiveView()->getClassName());
     }
 
 }
