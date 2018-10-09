@@ -34,8 +34,8 @@ class ContainerBuilder
     public function getContainer(): Container
     {
         $symfonyContainer = new SymfonyContainerBuilder();
-        $symfonyContainer->addCompilerPass(new AddConsoleCommandPass());
         $symfonyContainer->addCompilerPass(new RegisterListenersPass());
+        $symfonyContainer->addCompilerPass(new AddConsoleCommandPass('console.command_loader', 'console.command'));
         $this->loadServiceFiles($symfonyContainer);
         $this->loadProjectServices($symfonyContainer);
 
