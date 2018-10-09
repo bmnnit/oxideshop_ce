@@ -1499,4 +1499,12 @@ class ViewConfig extends \OxidEsales\Eshop\Core\Base
     {
         return '';
     }
+
+    /**
+     * @return \OxidEsales\Eshop\Core\Config
+     */
+    public function getConfig()
+    {
+        return \OxidEsales\Eshop\Core\Registry::getConfig();
+    }
 }
