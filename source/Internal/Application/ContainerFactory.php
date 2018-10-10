@@ -9,6 +9,7 @@ declare(strict_types=1);
 namespace OxidEsales\EshopCommunity\Internal\Application;
 
 use OxidEsales\Eshop\Core\Registry;
+use OxidEsales\Facts\Facts;
 use Psr\Container\ContainerInterface;
 use Symfony\Component\DependencyInjection\Dumper\PhpDumper;
 
@@ -79,7 +80,7 @@ class ContainerFactory
      */
     private function getCompiledSymfonyContainer()
     {
-        $containerBuilder = new ContainerBuilder();
+        $containerBuilder = new ContainerBuilder(new Facts());
         $this->symfonyContainer = $containerBuilder->getContainer();
         $this->symfonyContainer->compile();
     }

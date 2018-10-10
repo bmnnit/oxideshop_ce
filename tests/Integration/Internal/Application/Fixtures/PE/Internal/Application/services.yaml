@@ -1,0 +1,9 @@
+services:
+  OxidEsales\EshopCommunity\Internal\Console\ExecutorInterface:
+    class: OxidEsales\EshopCommunity\Tests\Integration\Internal\Application\Fixtures\PE\DummyExecutor
+    public: true
+    arguments:
+    - '@symfony.component.console.application'
+    - '@Symfony\Component\Console\Output\ConsoleOutputInterface'
+    - '@console.commands_collection_builder'
+    - '@OxidEsales\EshopCommunity\Internal\Adapter\ShopAdapterInterface'

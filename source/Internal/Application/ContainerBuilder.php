@@ -8,7 +8,7 @@ declare(strict_types=1);
 
 namespace OxidEsales\EshopCommunity\Internal\Application;
 
-use OxidEsales\EshopCommunity\Core\Registry;
+use OxidEsales\Facts\Facts;
 use Symfony\Component\Config\FileLocator;
 use Symfony\Component\Console\DependencyInjection\AddConsoleCommandPass;
 use Symfony\Component\DependencyInjection\Container;
@@ -29,6 +29,19 @@ class ContainerBuilder
     ];
 
     /**
+     * @var Facts
+     */
+    private $facts;
+
+    /**
+     * @param Facts $facts
+     */
+    public function __construct(Facts $facts)
+    {
+        $this->facts = $facts;
+    }
+
+    /**
      * @return Container
      */
     public function getContainer(): Container
@@ -37,6 +50,13 @@ class ContainerBuilder
         $symfonyContainer->addCompilerPass(new RegisterListenersPass());
         $symfonyContainer->addCompilerPass(new AddConsoleCommandPass('console.command_loader', 'console.command'));
         $this->loadServiceFiles($symfonyContainer);
+        if ($this->facts->isProfessional()) {
+            $this->loadEditionServices($symfonyContainer, $this->facts->getProfessionalEditionRootPath());
+        }
+        if ($this->facts->isEnterprise()) {
+            $this->loadEditionServices($symfonyContainer, $this->facts->getProfessionalEditionRootPath());
+            $this->loadEditionServices($symfonyContainer, $this->facts->getEnterpriseEditionRootPath());
+        }
         $this->loadProjectServices($symfonyContainer);
 
         return $symfonyContainer;
@@ -63,7 +83,7 @@ class ContainerBuilder
     {
 
         try {
-            $loader = new YamlFileLoader($symfonyContainer, new FileLocator($this->getShopSourcePath()));
+            $loader = new YamlFileLoader($symfonyContainer, new FileLocator($this->facts->getSourcePath()));
             $loader->load('project.yaml');
         } catch (\Exception $e) {
             // pass
@@ -71,10 +91,12 @@ class ContainerBuilder
     }
 
     /**
-     * @return string
+     * @param SymfonyContainerBuilder $symfonyContainer
+     * @param string                  $editionPath
      */
-    private function getShopSourcePath()
+    private function loadEditionServices(SymfonyContainerBuilder $symfonyContainer, string $editionPath)
     {
-        return Registry::getConfig()->getConfigParam('sShopDir');
+        $servicesLoader = new YamlFileLoader($symfonyContainer, new FileLocator($editionPath));
+        $servicesLoader->load('Internal/Application/services.yaml');
     }
 }
