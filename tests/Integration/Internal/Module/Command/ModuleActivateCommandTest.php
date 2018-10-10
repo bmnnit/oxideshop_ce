@@ -13,6 +13,7 @@ use OxidEsales\EshopCommunity\Internal\Module\Command\ModuleActivateCommand;
 use OxidEsales\EshopCommunity\Tests\Integration\Internal\Console\ConsoleTrait;
 use OxidEsales\EshopCommunity\Tests\Integration\Internal\ContainerTrait;
 use PHPUnit\Framework\TestCase;
+use Symfony\Component\Console\Application;
 use Symfony\Component\Console\Input\ArrayInput;
 use Symfony\Component\Filesystem\Filesystem;
 
@@ -27,6 +28,7 @@ class ModuleActivateCommandTest extends TestCase
 
         $moduleId = 'testmodule';
         $consoleOutput = $this->execute(
+            $this->getApplication(),
             $this->get('console.commands_collection_builder'),
             new ArrayInput(['command' => 'oe:module:activate', 'module-id' => $moduleId])
         );
@@ -49,6 +51,7 @@ class ModuleActivateCommandTest extends TestCase
 
         $moduleId = 'testmodule';
         $consoleOutput = $this->execute(
+            $this->getApplication(),
             $this->get('console.commands_collection_builder'),
             new ArrayInput(['command' => 'oe:module:activate', 'module-id' => $moduleId])
         );
@@ -62,6 +65,7 @@ class ModuleActivateCommandTest extends TestCase
     {
         $moduleId = 'test';
         $consoleOutput = $this->execute(
+            $this->getApplication(),
             $this->get('console.commands_collection_builder'),
             new ArrayInput(['command' => 'oe:module:activate', 'module-id' => $moduleId])
         );
@@ -81,5 +85,16 @@ class ModuleActivateCommandTest extends TestCase
     {
         $fileSystem = new Filesystem();
         $fileSystem->mirror(__DIR__ . '/Fixtures', Registry::getConfig()->getConfigParam('sShopDir'));
+    }
+
+    /**
+     * @return Application
+     */
+    private function getApplication(): Application
+    {
+        $application = $this->get('symfony.component.console.application');
+        $application->setAutoExit(false);
+
+        return $application;
     }
 }
